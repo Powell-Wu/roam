@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {existsSync,readFileSync} from 'node:fs';
 import {CARDS,initialState,newSession,draw} from '../src/lib/domain/core.mjs';
-import {cardArt} from '../src/lib/ui/art.mjs';
+import {ART,TASK_ILLUSTRATIONS,cardArt,cardArtKey} from '../src/lib/ui/art.mjs';
 import {renderView} from '../src/lib/ui/views.mjs';
 import {showCompletion} from '../src/lib/interactions/rewards.mjs';
 
@@ -12,7 +12,11 @@ test('task art is stable, all built-in and custom card types resolve to public s
   const art=cardArt(card);assert.deepEqual(cardArt({...card}),art);covered.add(art.src);
   assert(existsSync(new URL('../public/'+art.src,import.meta.url)));
  }
- assert.equal(covered.size,9);
+ for(const art of Object.values(ART))assert(covered.has(art.src),'original art remains used: '+art.src);
+ for(const art of Object.values(TASK_ILLUSTRATIONS))assert(covered.has(art.src),'new art is used: '+art.src);
+ assert.equal(Object.keys(ART).length,9,'custom cards keep the published v3 art vocabulary');
+ for(const [artKey,art] of Object.entries(ART))assert.equal(cardArt({id:'custom-kept',type:'event',text:'自定义任务',artKey}),art);
+ assert.equal(cardArtKey(CARDS.find(card=>card.id==='scene-12')),'discover','display art must not change the task stamp category');
  for(const file of ['deck-pattern.svg','chest-closed.webp','chest-open.webp','explorer-badge.webp'])assert(existsSync(new URL('../public/'+file,import.meta.url)));
 });
 

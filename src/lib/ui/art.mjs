@@ -13,8 +13,19 @@ export const ART={
 export const ART_NAMES={explore:'街角入口',challenge:'隐藏通道',discover:'城市线索',track:'小巷足迹',talk:'树荫对话',shop:'街角小店',photo:'镜头发现',sound:'城市声音',cooperate:'双人合作'};
 const scene=['explore','shop','talk','shop','track','track','explore','track','discover','explore','discover','discover','explore','sound','track','challenge'];
 const talk=['talk','shop','explore','cooperate','shop','discover','track','challenge','photo','talk','shop','talk','photo','explore','cooperate','track'];
-const event=['cooperate','cooperate','shop','photo','shop','shop','shop','challenge','cooperate','shop','shop','cooperate','challenge','photo','sound','cooperate'];
+const event=['cooperate','cooperate','shop','photo','shop','shop','shop','challenge','cooperate','shop','shop','cooperate','challenge','photo','sound','cooperate','discover','cooperate','sound','cooperate','discover','cooperate','discover','cooperate'];
 export const TASK_ART=Object.fromEntries(Object.entries({scene,talk,event}).flatMap(([type,list])=>list.map((art,i)=>[`${type}-${String(i+1).padStart(2,'0')}`,art])));
+// Display-only artwork: these resources never become saved custom-card artKey values.
+const contentArt={
+ improv:{src:'art-improv.webp',alt:'两位同行者在街角轮流用手势即兴合作'},
+ shapes:{src:'art-shapes.webp',alt:'两位同行者一起发现窗格和城市物件的形状'},
+ postcard:{src:'art-postcard.webp',alt:'两位同行者在长桌旁交换关于下一程的想法'}
+};
+export const TASK_ILLUSTRATIONS=Object.fromEntries([
+ ...['event-01','event-02','event-09','event-12','event-16','event-18','event-20','event-22','event-24'].map(id=>[id,contentArt.improv]),
+ ...['scene-09','scene-11','scene-12','event-14','event-17','event-21','event-23'].map(id=>[id,contentArt.shapes]),
+ ...['talk-07','talk-10','talk-12','talk-13','talk-16'].map(id=>[id,contentArt.postcard])
+]);
 export function cardArtKey(card){
  if(Object.hasOwn(TASK_ART,card.id))return TASK_ART[card.id];
  if(card.id?.startsWith('custom-')&&Object.hasOwn(ART,card.artKey))return card.artKey;
@@ -30,4 +41,4 @@ export function cardArtKey(card){
  if(/坐|发呆|休息|聊天/.test(text))return 'talk';
  return card.type==='event'?'cooperate':'explore';
 }
-export function cardArt(card){return ART[cardArtKey(card)];}
+export function cardArt(card){return TASK_ILLUSTRATIONS[card.id]||ART[cardArtKey(card)];}

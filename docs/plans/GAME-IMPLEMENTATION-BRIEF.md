@@ -1,6 +1,6 @@
 # 双人城市冒险：后续 agent 执行总纲
 
-更新：2026-10-13（Asia/Taipei）。状态：A→D的本机功能与Roam品牌已实现，最近线上记录r-2a83bbad3384；第二轮两种主题旅程、换卡近期权重及JSON v3兼容升级已在本机完成，当前r-9c29590d4fb7，尚未发布。用户要求先完成第二轮，结束后提醒人工验收；真实手机、屏幕阅读器与五对用户试玩暂缓并保留待验状态。实施证据见 [当前实施报告](../reports/IMPLEMENTATION-PROGRESS.md)，品牌规范见 [品牌规范](../design/PROJECT-NAMING.md)。
+更新：2026-10-20（Asia/Singapore）。状态：A→D的功能、Roam品牌、第二轮主题与玩家评审优化均已实现并发布；当前main为7b944b9，内容版本r-dffed68f37b4，部署路径为/roam/。云端内容更新r-463a05a568e3已补齐35张提示并新增8事件、四章和三插图，尚未合入上线；真实手机、屏幕阅读器与五对用户试玩继续待验，人工验收此前按用户要求暂缓。实施证据见 [当前实施报告](../reports/IMPLEMENTATION-PROGRESS.md)，当前待办见 [路线图](ROADMAP.md)，品牌规范见 [品牌规范](../design/PROJECT-NAMING.md)。
 
 用户已确认：保留现实散步，网页负责抽卡、双人互动与奖励；建议整理为后续 agent 的执行依据；允许升级 Svelte，并委托助手决定技术路线。本文件据此确定架构和实施顺序。
 
@@ -26,7 +26,7 @@
 | 动效 | CSS / Web Animations API；需要弹簧手感时使用 Svelte 原生 motion | 当前翻牌已有浏览器动画实现，先复用并统一生命周期 |
 | 数据 | 保留 IndexedDB 原子事务和跨标签通知 | 保持既有记录、去重、防重复积分与失败恢复能力 |
 | 离线与更新 | 保留自维护 Service Worker，适配 Vite 产物 | 维持显式应用更新与表单保护，避免同时更换缓存机制 |
-| 托管 | 原 GitHub Pages 与 /citywalk/ 路径 | 用户原网址、存储来源和安装入口保持连续 |
+| 托管 | GitHub Pages 与 /roam/ 路径 | 2026-10-15完成仓库与网址迁移，保留原PWA id及数据库/存储身份，兼容旧路径数据迁移 |
 | 验证 | Node 内置业务测试 + fake-indexeddb；增加 svelte-check 和 Playwright 关键流程 | 复用业务断言，补上 UI、触摸与旧版升级的浏览器证据 |
 
 SvelteKit、SSR 和服务器 API 暂无本轮需求。Phaser 仅在未来出现角色移动或实时小游戏时评估，不进入当前卡牌主流程。
@@ -62,7 +62,7 @@ SvelteKit、SSR 和服务器 API 暂无本轮需求。Phaser 仅在未来出现�
 
 ### 已落实的构建、版本与发布约束
 
-- Vite base 对应原 /citywalk/ 部署子路径；图片、manifest、Service Worker 以部署基路径解析，不能硬编码为域名根目录 /。
+- Vite base 对应当前 /roam/ 部署子路径；图片、manifest、Service Worker 以部署基路径解析，不能硬编码为域名根目录 /。manifest id继续保留/citywalk/。
 - scripts/release.mjs 和 scripts/check.mjs 已递归处理 dist 下最终 JS、CSS、图片和其他静态产物，涵盖 assets 子目录和指纹文件；排除 source map 与仅供开发的资料。
 - 内容版本基于最终产物生成：先 Vite build，再递归编目并计算内容哈希，再写 release.json 与 sw.js。二者不参与自身版本哈希；同输入重建应得到同版本，避免版本导入打包导致哈希循环。
 - 设置页从本版本缓存中的 release.json 读取版本；版本查询本身不触发整页刷新。必要时为旧更新入口生成兼容 release.mjs，验证后决定兼容窗口。
@@ -118,7 +118,7 @@ SvelteKit、SSR 和服务器 API 暂无本轮需求。Phaser 仅在未来出现�
 
 ### 第一批：把一局已有冒险打磨完整
 
-沿用 48 张卡、短途/半日/自由、预算和场景筛选。显示当前站、待办状态与下一档奖励；普通完成采用页内盖章和节点推进，达档再开宝箱；收尾解释 +4 分并留下名字和回忆。
+沿用 48 张卡、短途/半日/自由、预算和场景筛选。显示当前站、待办状态与下一档奖励；普通完成采用页内盖章和节点推进，中途达档采用简短页内提示；收尾解释 +4 分并留下名字和回忆，集中展示最高奖励与新章。
 
 旧短途目标 13、阈值 8/11/13；半日目标 20、阈值 12/16/20。三类奖励、额外奖励与最高档领取保持当前解释。自由或不计分模式不能出现虚构的目标分数。
 
@@ -184,11 +184,13 @@ A/B/C及D的本机功能已完成，D的真实设备和参与者验收未完成�
 ## 9. 可复制给后续 agent 的指令
 
 ```text
-在 D:\Documents\Codex\citywalk-app 维护“沿途未定 · Roam”。先读 README.md、docs/README.md、docs/plans/ROADMAP.md，再读 docs/plans/GAME-IMPLEMENTATION-BRIEF.md、docs/design/PROJECT-NAMING.md、docs/reports/IMPLEMENTATION-PROGRESS.md 和适用 AGENTS.md。
+在当前检出维护“沿途未定 · Roam”（当前云端为/workspace/roam）。先读 README.md、docs/README.md、docs/plans/ROADMAP.md，再读 docs/plans/GAME-IMPLEMENTATION-BRIEF.md、docs/design/PROJECT-NAMING.md、docs/reports/IMPLEMENTATION-PROGRESS.md 和适用 AGENTS.md。
 
-迁移、完整旅程、精品试玩、重玩与第二轮主题已经实现。当前第二轮本机构建r-9c29590d4fb7、JSON v3、IndexedDB结构1，尚未发布；先复核实际工作树，再按用户当次要求处理当前路线图中的事项，不重做A/B/C。
+跨电脑继续同一个云端目录时，先核对git status、未提交差异、新文件、当前阶段日志及进程，再对照远端；远端没有新提交不代表云端没有进展。保留已有实现和失败现场，复用可验证的阶段结果，在原授权范围内继续，不重复开发或重置到初始快照。不能将未完成的集成、缺失的资源或旧版本的通过记录视为当前验收完成。
 
-源码在src/public，dist是生成产物，_site是旧对照产物；保留已有未提交改动。保留原URL /citywalk/、hash路由、PWA/数据库/存储身份、v1/v2兼容输入与历史积分。复用现有业务和原子事务，回退应用必须兼容已经写入的JSON格式。不要清空用户数据。
+迁移、完整旅程、精品试玩、重玩、第二轮主题及玩家评审优化均已发布。2026-10-19复核main为7b944b9、内容版本r-dffed68f37b4、JSON v3、IndexedDB结构1；先复核实际工作树，再按用户当次要求处理当前路线图中的事项，不重做A/B/C，也不将此版本记录当作重置工作树的指令。
+
+源码在src/public，dist是生成产物，_site是旧对照产物；保留已有未提交改动。部署路径为/roam/，保持hash路由、原/citywalk/ PWA id、数据库/存储身份、跨路径升级、v1/v2兼容输入与历史积分。复用现有业务和原子事务，回退应用必须兼容已经写入的JSON格式。不要清空用户数据。
 
 变更后按范围验证业务、旧数据、worker更新、离线/草稿/跨标签、触摸与布局；保存实际版本和原始证据。依赖复用package-lock，不无故升级。名称固定为“沿途未定 · Roam”，按品牌规范统一显示。
 

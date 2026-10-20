@@ -8,11 +8,6 @@ body{overflow-x:clip}
 .task-card[data-swipe-card]{touch-action:pan-y pinch-zoom;cursor:grab;user-select:none;-webkit-user-select:none}
 .task-card.is-dragging{transition:none;cursor:grabbing;will-change:transform}
 .task-card input{user-select:text;-webkit-user-select:text}
-.swipe-choice{position:absolute;top:42px;z-index:2;padding:8px 15px;border:3px solid currentColor;border-radius:4px;font-weight:750;font-size:1.35rem;pointer-events:none;background:#18272bf5;box-shadow:0 4px 14px #0003;line-height:1.4}
-.swipe-choice span{display:block;font-size:.75rem}
-.choice-left{right:18px;color:#f4c67b;opacity:var(--left-choice);transform:rotate(9deg)}
-.choice-right{left:18px;color:#a4dfb7;opacity:var(--right-choice);transform:rotate(-9deg)}
-.task-card:not(.swipe-ready) .swipe-choice span{visibility:hidden}
 .swipe-guide{text-align:center;font-size:.8125rem;color:var(--accent);margin:0 0 3px}
 .deck-count{text-align:center;font-size:.75rem;color:var(--muted);margin:0}
 [data-theme=adventure] .card-enter{animation:deal-card 300ms cubic-bezier(.2,.75,.25,1) backwards}
