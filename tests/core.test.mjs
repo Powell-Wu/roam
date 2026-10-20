@@ -4,7 +4,12 @@ import {CARDS,TYPES,initialState,newSession,draw,replaceCard,complete,setSlotSta
 import {renderView} from '../src/lib/ui/views.mjs';
 function started(mode='short',budget=0,place='both'){const s=initialState();newSession(s,{...s.preferences,mode,budget,place},1000000);return s;}
 function done(s,i=0,time=1000100){const se=s.session,x=se.slots[i];draw(s,se.id,x.id,null,()=>0);complete(s,se.id,x.id,x.card.id,0,time);return x;}
-test('48 unique cards preserve 24 original cards and balanced pools',()=>{assert.equal(CARDS.length,48);assert.equal(new Set(CARDS.map(x=>x.id)).size,48);assert.equal(CARDS.filter(x=>x.source==='original').length,24);for(const type of Object.keys(TYPES))assert.equal(CARDS.filter(x=>x.type===type).length,16);});
+test('expanded cards preserve the original IDs and 24 original-source cards',()=>{
+ const ids=CARDS.map(card=>card.id);assert.equal(new Set(ids).size,ids.length);
+ for(const type of Object.keys(TYPES))for(let i=1;i<=16;i++)assert(ids.includes(`${type}-${String(i).padStart(2,'0')}`));
+ assert.equal(CARDS.filter(card=>card.source==='original').length,24);
+ assert.deepEqual(Object.fromEntries(Object.keys(TYPES).map(type=>[type,CARDS.filter(card=>card.type===type).length])),{scene:16,talk:16,event:24});
+});
 test('short and half plans have reachable target and thresholds',()=>{let s=started();assert.equal(target(s.session),13);assert.deepEqual(thresholds(s.session),[8,11,13]);s=started('half');assert.equal(target(s.session),20);assert.deepEqual(thresholds(s.session),[12,16,20]);for(let i=0;i<7;i++)done(s,i,1000100+i);const id=s.session.id;finish(s,id,{name:'晚风',memory:'一起走',closing:true},1001000);assert.equal(score(s.history[0]).base,16);assert.equal(score(s.history[0]).total,22);});
 test('same completed card cannot receive points twice',()=>{const s=started(),x=done(s),before=score(s.session).total;assert.equal(complete(s,s.session.id,x.id,x.card.id),false);assert.equal(score(s.session).total,before);});
 test('draw and replace reject stale cards; replaced cards never reappear',()=>{const s=started(),se=s.session,x=se.slots[0];draw(s,se.id,x.id,null,()=>0);const old=x.card.id;assert.throws(()=>draw(s,se.id,x.id),/抽过/);replaceCard(s,se.id,x.id,old,()=>0);assert.notEqual(old,x.card.id);assert.throws(()=>replaceCard(s,se.id,x.id,old),/变化/);assert(!eligible(s,'scene').some(c=>c.id===old));});

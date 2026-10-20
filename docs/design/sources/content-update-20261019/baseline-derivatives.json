@@ -1,0 +1,92 @@
+[
+  {
+    "file": "art-challenge.webp",
+    "sourceBytes": 45380,
+    "sourceSHA256": "93a9c84bfb61ea8d222a298fdf0e8e2e2408699b43d32f95ef8f4ef88ff07f9b",
+    "bytes": 29020,
+    "width": 480,
+    "height": 640,
+    "quality": 70,
+    "kernel": "nearest"
+  },
+  {
+    "file": "art-cooperate.webp",
+    "sourceBytes": 46448,
+    "sourceSHA256": "4e38b96ae6e036c021ee9ff979bdc871f53b5f0960623b5046e4a4f884fc1bca",
+    "bytes": 33002,
+    "width": 480,
+    "height": 640,
+    "quality": 70,
+    "kernel": "nearest"
+  },
+  {
+    "file": "art-discover.webp",
+    "sourceBytes": 40956,
+    "sourceSHA256": "95909e2fd7ef00785addfc559a8b4527807f920a000591e3a7285f7226ee58b1",
+    "bytes": 26540,
+    "width": 480,
+    "height": 640,
+    "quality": 70,
+    "kernel": "nearest"
+  },
+  {
+    "file": "art-explore.webp",
+    "sourceBytes": 42408,
+    "sourceSHA256": "b31d3dd78b4a506430a957731c0552592ed303e116addce4f0d6cbe77b6ef75d",
+    "bytes": 26638,
+    "width": 480,
+    "height": 640,
+    "quality": 70,
+    "kernel": "nearest"
+  },
+  {
+    "file": "art-photo.webp",
+    "sourceBytes": 47702,
+    "sourceSHA256": "02b6c3958ce198f6a97f2ed0208e58c29a441ec1c2d9db6018f7d9721a4e6e96",
+    "bytes": 32864,
+    "width": 480,
+    "height": 640,
+    "quality": 70,
+    "kernel": "nearest"
+  },
+  {
+    "file": "art-shop.webp",
+    "sourceBytes": 42942,
+    "sourceSHA256": "9102a0b293d63a21198e74c7bfc16937866b2d87804596634fb30af993ca5266",
+    "bytes": 27796,
+    "width": 480,
+    "height": 640,
+    "quality": 70,
+    "kernel": "nearest"
+  },
+  {
+    "file": "art-sound.webp",
+    "sourceBytes": 47218,
+    "sourceSHA256": "97bc9a94bdeda0d3009d7f2afeb00f788567bc82e2e8b7c3d678de6b4fdb6437",
+    "bytes": 32508,
+    "width": 480,
+    "height": 640,
+    "quality": 70,
+    "kernel": "nearest"
+  },
+  {
+    "file": "art-talk.webp",
+    "sourceBytes": 39956,
+    "sourceSHA256": "b2591b5cbf9a431907cf7cbf1a0438a0d5f3601551dfb4d6db9f772b2a925c1b",
+    "bytes": 24766,
+    "width": 480,
+    "height": 640,
+    "quality": 70,
+    "kernel": "nearest"
+  },
+  {
+    "file": "art-track.webp",
+    "sourceBytes": 50824,
+    "sourceSHA256": "99bb4b428a8bc4dd58b490177038f31d9e10b47d0831863bed3ae7137b5c54eb",
+    "bytes": 31250,
+    "width": 480,
+    "height": 640,
+    "quality": 70,
+    "kernel": "nearest"
+  }
+]

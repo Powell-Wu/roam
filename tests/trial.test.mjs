@@ -19,8 +19,10 @@ test('trial has exactly three zero-cost 3–5 minute tasks and saves an effectiv
 test('trial preserves hard disabled filters, local deduplication and the current card on exhaustion',()=>{
  const s=start(),se=s.session;s.disabled=TRIAL_FIRST.slice(1);draw(s,se.id,se.slots[0].id,undefined,()=>0);const current=structuredClone(se.slots[0]);assert.throws(()=>replaceCard(s,se.id,current.id,current.card.id),/用完/);assert.deepEqual(se.slots[0],current);
 });
-test('twelve curated cards specify who starts, a shared action and the completion condition',()=>{
- const cards=CARDS.filter(card=>card.duo);assert.equal(cards.length,12);for(const card of cards)for(const key of ['first','action','done'])assert(card.duo[key].trim());
+test('all built-in cards preserve the original curated handoffs and specify a concrete shared task',()=>{
+ const original=['scene-09','scene-12','scene-14','event-13','talk-09','talk-10','talk-12','talk-13','event-09','event-14','event-15','event-16'];
+ for(const id of original)assert(CARDS.find(card=>card.id===id)?.duo,'original handoff retained: '+id);
+ for(const card of CARDS){assert(card.duo,'specific handoff for '+card.id);for(const key of ['first','action','done'])assert(card.duo[key].trim());assert.notEqual(card.duo.done,'两人都完成卡上的任务');}
 });
 test('current schema validates snapshots, branches and duo prose at runtime before importing',()=>{
  const s=start();for(const mutate of [s=>delete s.session.rules,s=>s.session.rules.thresholds=[1,2,3],s=>s.session.slots[0].points=77,s=>s.session.branch='__proto__',s=>s.sound='yes',s=>s.session.rules.id='unknown']){const raw=structuredClone(s);mutate(raw);assert.throws(()=>validateBackup(raw));}
