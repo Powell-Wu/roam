@@ -1,10 +1,10 @@
 # 项目资料索引
 
-资料状态截至 2026-10-19（Asia/Singapore）。日常运行和发布命令见根目录 [README](../README.md)。
+资料状态截至 2026-10-20（Asia/Singapore）。日常运行和发布命令见根目录 [README](../README.md)。
 
 ## 当前状态
 
-正式main仍为 `7b944b9` / `r-dffed68f37b4`；当前云端内容更新构建为 `r-463a05a568e3`，位于独立分支，尚未合入上线。实际交付与当前验证见[内容更新记录](reports/CONTENT-UPDATE-20261020.md)。
+本轮发布内容版本为 `r-463a05a568e3`，用户已于2026-10-20通过独立试玩入口验收并授权发布。[PR #3](https://github.com/Powell-Wu/roam/pull/3)及[main发布工作流](https://github.com/Powell-Wu/roam/actions/workflows/pages.yml)记录合入、部署与线上资源核验；前版为 `7b944b9` / `r-dffed68f37b4`。实际交付与验证见[内容更新记录](reports/CONTENT-UPDATE-20261020.md)。
 
 - 8张新事件、35张旧卡提示细化与四枚新章已实现：共56任务、十枚纪念章；原48卡身份、计分、主题和试玩保持。
 - 三张卡组插图、四章透明图集和资源减重已完成，完整离线包950.2KiB。

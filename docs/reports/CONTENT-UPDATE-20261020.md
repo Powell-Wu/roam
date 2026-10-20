@@ -1,8 +1,16 @@
 # 内容扩充与细节更新交付记录
 
-2026-10-20（Asia/Singapore）。开发分支：`codex/content-update-20261019`。基于main `7b944b9` / 已发布内容 `r-dffed68f37b4` 实施；当前生产构建为 **r-463a05a568e3**。本记录区分云端实现与正式上线，不将本机构建认定为已发布。
+2026-10-20（Asia/Singapore）。开发分支：`codex/content-update-20261019`。基于main `7b944b9` / 前版 `r-dffed68f37b4` 实施；本轮发布内容为 **r-463a05a568e3**。用户已通过独立试玩入口验收并授权发布，合入及部署证据由[PR #3](https://github.com/Powell-Wu/roam/pull/3)和[main发布工作流](https://github.com/Powell-Wu/roam/actions/workflows/pages.yml)保留。
 
 依据：[更新计划](../plans/CONTENT-UPDATE-20261019.md)。五个方向分工实施，另安排独立CSS减重；UI与美术分别负责界面和图片，主代理集成与验收。跨电脑继续复用同一个云端工作区，保留已有改动、原始证据与兼容基线。
+
+## 用户验收与发布
+
+2026-10-20，用户在[独立私有试玩站](https://roam-acceptance-20261020.powellwu9703.chatgpt.site)验收后确认：“验收通过，发布到GitHub更新”。该站的37个游戏文件与源码提交 `aa4aaac95e9b655b19f9d0a79b811a44ea8b2022` 的生产构建逐一一致，内容版本为 `r-463a05a568e3`。本次随后仅补充文档记录，发布构建须保持同一版本与资源字节。
+
+正式入口继续使用 https://powell-wu.github.io/roam/ 。main发布工作流执行类型、106项测试、构建、产物检查及完整七阶段E2E，再部署GitHub Pages，并下载线上release.json、Service Worker及全部完整性清单资源核对版本与SHA-256。验收站与正式网站按域名分别保存浏览器数据。
+
+本次记录用户总体验收结论；未提供具体设备型号、屏幕阅读器或P01–P05逐项结果，相应专项表格按实际证据维护。
 
 ## 实际交付
 

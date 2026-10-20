@@ -6,7 +6,7 @@ GitHub 仓库：[Powell-Wu/roam](https://github.com/Powell-Wu/roam)。[仓库与
 
 ## 项目资料
 
-统一入口：[项目资料索引](docs/README.md)。本轮云端内容更新已实现：56张任务、十枚纪念章、三张新插图和具体任务提示；当前构建 `r-463a05a568e3`，交付与验证见[内容更新记录](docs/reports/CONTENT-UPDATE-20261020.md)。正式网站发布基线仍为 `r-dffed68f37b4` / `7b944b9`；分支实现不代表已经上线。真实设备与双人试玩继续按验收表保留待验。
+统一入口：[项目资料索引](docs/README.md)。本轮发布内容：56张任务、十枚纪念章、三张新插图和具体任务提示，内容版本 `r-463a05a568e3`。用户于2026-10-20通过独立试玩入口验收并授权发布，交付与验证见[内容更新记录](docs/reports/CONTENT-UPDATE-20261020.md)。[PR #3](https://github.com/Powell-Wu/roam/pull/3)合入main后由[发布工作流](https://github.com/Powell-Wu/roam/actions/workflows/pages.yml)执行完整检查、部署及线上版本/资源哈希核验。专项实机与双人参与者记录见验收表。
 
 - [当前路线图](docs/plans/ROADMAP.md)：已完成范围、剩余验收和后续决策。
 - [下一轮更新计划](docs/plans/CONTENT-UPDATE-20261019.md)：纪念章、事件卡、插图与细节完善的团队方案，含首发范围、分工、预算和验收；实现结果见交付记录。
